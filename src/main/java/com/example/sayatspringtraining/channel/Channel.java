@@ -1,10 +1,13 @@
 package com.example.sayatspringtraining.channel;
 
+import com.example.sayatspringtraining.user.User;
+import com.example.sayatspringtraining.video.Video;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +22,11 @@ public class Channel {
     private String country;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "channel")
+    private List<Video> videos;
 }

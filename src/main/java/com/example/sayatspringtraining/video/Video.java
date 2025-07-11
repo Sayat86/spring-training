@@ -1,5 +1,6 @@
 package com.example.sayatspringtraining.video;
 
+import com.example.sayatspringtraining.channel.Channel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,4 +22,8 @@ public class Video {
     @Column(name = "is_hidden")
     private Boolean isHidden;
     private Integer views;
+
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
 }
