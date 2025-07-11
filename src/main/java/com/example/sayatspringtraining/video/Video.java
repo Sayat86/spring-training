@@ -1,11 +1,13 @@
 package com.example.sayatspringtraining.video;
 
 import com.example.sayatspringtraining.channel.Channel;
+import com.example.sayatspringtraining.view.View;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +28,7 @@ public class Video {
     @ManyToOne
     @JoinColumn(name = "channel_id")
     private Channel channel;
+
+    @OneToMany(mappedBy = "video")
+    private List<View> viewList;
 }

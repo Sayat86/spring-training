@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,10 +24,13 @@ public class Channel {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "channel")
     private List<Video> videos;
+
+    @ManyToMany(mappedBy = "subscribedChannels")
+    private List<User> subscribers = new ArrayList<>();
 }

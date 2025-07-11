@@ -1,9 +1,12 @@
 create table users
 (
     id         bigserial primary key,
-    email      varchar(50) not null unique,
-    created_at timestamp   not null,
+    name       varchar(100) not null,
+    email      varchar(50)  not null unique,
+    created_at timestamp    not null
 );
+
+
 
 create table channels
 (
@@ -12,7 +15,7 @@ create table channels
     description varchar(1000) not null,
     country     varchar(50)   not null,
     created_at  timestamp     not null,
-    user_id     bigint        not null,
+    user_id     bigint        not null unique ,
     foreign key (user_id) references users (id)
 );
 
