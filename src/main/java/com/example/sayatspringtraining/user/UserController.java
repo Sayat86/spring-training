@@ -22,14 +22,14 @@ public class UserController {
         return userMapper.toResponse(userService.create(user));
     }
 
-    @GetMapping("/{id}")
-    public UserResponseDto findById(@PathVariable int id) {
-        return userMapper.toResponse(userService.findById(id));
+    @GetMapping("/{userId}")
+    public UserResponseDto findById(@PathVariable int userId) {
+        return userMapper.toResponse(userService.findById(userId));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable int id) {
-        userService.deleteById(id);
+    public void deleteById(@PathVariable int userId) {
+        userService.deleteById(userId);
     }
 }
