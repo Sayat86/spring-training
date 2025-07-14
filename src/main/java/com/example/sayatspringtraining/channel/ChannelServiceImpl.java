@@ -6,6 +6,7 @@ import com.example.sayatspringtraining.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,6 +20,7 @@ public class ChannelServiceImpl implements ChannelService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с таким ID не найден"));
         channel.setUser(user);
+        channel.setCreatedAt(LocalDateTime.now());
         return channelRepository.save(channel);
     }
 
@@ -26,19 +28,17 @@ public class ChannelServiceImpl implements ChannelService {
     public Channel findById(int channelId, int userId) {
         Channel channel = channelRepository.findById(channelId)
                 .orElseThrow(() -> new NotFoundException("Канал пользователя не найден"));
-        if (channel.getUser().getId() != userId) {
-            throw new NotFoundException("Пользователь канала не найден");
-        }
         return channel;
     }
 
     @Override
-    public Channel me(int channelId) { //todo
-        return null;
+    public Channel me(int userId) {
+        return channelRepository.findByUserId(userId)
+                .orElseThrow(() -> new NotFoundException("Канал не найден"));
     }
 
     @Override
     public List<Channel> findAllByOwnerId(int ownerId) {
-        return channelRepository.findByOwnerId(ownerId);
+        return null;
     }
 }

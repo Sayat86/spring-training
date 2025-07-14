@@ -1,7 +1,10 @@
 package com.example.sayatspringtraining.channel.dto;
 
 import com.example.sayatspringtraining.user.User;
+import com.example.sayatspringtraining.user.dto.UserResponseDto;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class ChannelResponseDto {
@@ -9,5 +12,6 @@ public class ChannelResponseDto {
     private String name;
     private String description;
     private String country;
-    private User user; //todo
+    private LocalDateTime createdAt;
+    private UserResponseDto user; //todo
 }

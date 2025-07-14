@@ -4,6 +4,8 @@ import com.example.sayatspringtraining.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -11,6 +13,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        user.setCreatedAt(LocalDateTime.now());
         return userRepository.save(user);
     }
 

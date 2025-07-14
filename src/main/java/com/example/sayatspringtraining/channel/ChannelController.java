@@ -30,4 +30,9 @@ public class ChannelController {
                                        @RequestHeader(USER_HEADER) int userId) {
         return channelMapper.toResponse(channelService.findById(channelId, userId));
     }
+
+    @GetMapping("/me")
+    public ChannelResponseDto getMyChannel(@RequestHeader(USER_HEADER) int userId){
+        return channelMapper.toResponse(channelService.me(userId));
+    }
 }
