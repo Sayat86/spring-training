@@ -1,5 +1,7 @@
 package com.example.sayatspringtraining.channel;
 
+import com.example.sayatspringtraining.channel.dto.ChannelMapper;
+import com.example.sayatspringtraining.exception.ForbiddenException;
 import com.example.sayatspringtraining.exception.NotFoundException;
 import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.user.UserRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 public class ChannelServiceImpl implements ChannelService {
     private final ChannelRepository channelRepository;
     private final UserRepository userRepository;
+    private final ChannelMapper channelMapper;
 
     @Override
     public Channel create(Channel channel, int userId) {
@@ -35,6 +38,20 @@ public class ChannelServiceImpl implements ChannelService {
     public Channel me(int userId) {
         return channelRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("Канал не найден"));
+    }
+
+    @Override
+    public Channel update(Channel updateChannel, int channelId, int userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с таким ID не найден"));
+        Channel channelExisting = channelRepository.findById(channelId)
+                .orElseThrow(() -> new NotFoundException("Канал не найден"));
+        if (channelExisting.getUser().getId() != userId) {
+            throw new ForbiddenException("Данный пользователь не является владельцем канала");
+        }
+        channelMapper.merge(channelExisting, updateChannel);
+        channelExisting.setCreatedAt(LocalDateTime.now());
+        return channelRepository.save(channelExisting);
     }
 
     @Override

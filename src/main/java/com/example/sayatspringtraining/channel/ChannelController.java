@@ -3,6 +3,7 @@ package com.example.sayatspringtraining.channel;
 import com.example.sayatspringtraining.channel.dto.ChannelCreateDto;
 import com.example.sayatspringtraining.channel.dto.ChannelMapper;
 import com.example.sayatspringtraining.channel.dto.ChannelResponseDto;
+import com.example.sayatspringtraining.channel.dto.ChannelUpdateDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,14 @@ public class ChannelController {
                                      @RequestHeader(USER_HEADER) int userId) {
         Channel channel = channelMapper.fromCreate(channelCreate);
         return channelMapper.toResponse(channelService.create(channel, userId));
+    }
+
+    @PatchMapping("/me/{channelId}")
+    public ChannelResponseDto update(@RequestBody ChannelUpdateDto channelUpdate,
+                                     @RequestHeader(USER_HEADER) int userId,
+                                     @PathVariable int channelId) {
+        Channel channel = channelMapper.fromUpdate(channelUpdate);
+        return channelMapper.toResponse(channelService.update(channel, userId, channelId));
     }
 
     @GetMapping("/{channelId}")

@@ -1,6 +1,6 @@
 package com.example.sayatspringtraining.channel.dto;
 
-import com.example.sayatspringtraining.user.User;
+import com.example.sayatspringtraining.channel.Country;
 import com.example.sayatspringtraining.user.dto.UserResponseDto;
 import lombok.Data;
 
@@ -11,7 +11,7 @@ public class ChannelResponseDto {
     private int id;
     private String name;
     private String description;
-    private String country;
+    private Country country;
     private LocalDateTime createdAt;
     private UserResponseDto user; //todo
 }

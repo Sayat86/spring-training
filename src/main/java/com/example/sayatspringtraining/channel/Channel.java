@@ -20,7 +20,8 @@ public class Channel {
     private Integer id;
     private String name;
     private String description;
-    private String country;
+    @Enumerated(value = EnumType.STRING)
+    private Country country;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

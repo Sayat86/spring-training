@@ -1,7 +1,6 @@
 package com.example.sayatspringtraining.channel.dto;
 
 import com.example.sayatspringtraining.channel.Channel;
-import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.user.dto.UserResponseDto;
 import org.springframework.stereotype.Component;
 
@@ -29,5 +28,24 @@ public class ChannelMapper {
         channelResponse.setCountry(channel.getCountry());
         channelResponse.setCreatedAt(channel.getCreatedAt());
         return channelResponse;
+    }
+
+    public Channel fromUpdate(ChannelUpdateDto channelUpdate) {
+        Channel channel = new Channel();
+        channel.setName(channelUpdate.getName());
+        channel.setDescription(channelUpdate.getDescription());
+        channel.setCountry(channelUpdate.getCountry());
+        return channel;
+    }
+
+    public void merge(Channel existingChannel, Channel updateChannel) {
+        if (updateChannel.getName() != null && !updateChannel.getName().isBlank()) {
+            existingChannel.setName(updateChannel.getName());
+        }
+        if (updateChannel.getDescription() != null && !updateChannel.getDescription().isBlank()) {
+            existingChannel.setDescription(updateChannel.getDescription());
+        }
+        existingChannel.setCountry(updateChannel.getCountry());
+        existingChannel.setCreatedAt(updateChannel.getCreatedAt());
     }
 }
