@@ -29,7 +29,7 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public Channel findById(int channelId, int userId) {
-        Channel channel = channelRepository.findById(channelId)
+        Channel channel = channelRepository.findById(channelId) //todo
                 .orElseThrow(() -> new NotFoundException("Канал пользователя не найден"));
         return channel;
     }

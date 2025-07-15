@@ -13,5 +13,5 @@ public class ChannelResponseDto {
     private String description;
     private Country country;
     private LocalDateTime createdAt;
-    private UserResponseDto user; //todo
+    private UserResponseDto user;
 }

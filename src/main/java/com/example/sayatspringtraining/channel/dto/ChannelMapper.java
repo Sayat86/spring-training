@@ -17,10 +17,12 @@ public class ChannelMapper {
     public ChannelResponseDto toResponse(Channel channel) {
         ChannelResponseDto channelResponse = new ChannelResponseDto();
         UserResponseDto userResponse = new UserResponseDto();
+
         userResponse.setId(channel.getUser().getId());
         userResponse.setName(channel.getUser().getName());
         userResponse.setEmail(channel.getUser().getEmail());
         userResponse.setCreatedAt(channel.getUser().getCreatedAt());
+
         channelResponse.setUser(userResponse);
         channelResponse.setId(channel.getId());
         channelResponse.setName(channel.getName());
@@ -45,7 +47,7 @@ public class ChannelMapper {
         if (updateChannel.getDescription() != null && !updateChannel.getDescription().isBlank()) {
             existingChannel.setDescription(updateChannel.getDescription());
         }
-        existingChannel.setCountry(updateChannel.getCountry());
+        existingChannel.setCountry(updateChannel.getCountry()); //todo
         existingChannel.setCreatedAt(updateChannel.getCreatedAt());
     }
 }
