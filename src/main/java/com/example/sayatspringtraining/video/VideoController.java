@@ -19,7 +19,6 @@ public class VideoController {
     private final VideoService videoService;
     private final VideoMapper videoMapper;
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VideoResponseDto create(@Valid @RequestBody VideoCreateDto videoCreate,
