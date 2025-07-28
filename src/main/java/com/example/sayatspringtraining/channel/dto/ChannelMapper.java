@@ -47,7 +47,8 @@ public class ChannelMapper {
         if (updateChannel.getDescription() != null && !updateChannel.getDescription().isBlank()) {
             existingChannel.setDescription(updateChannel.getDescription());
         }
-        existingChannel.setCountry(updateChannel.getCountry()); //todo
-        existingChannel.setCreatedAt(updateChannel.getCreatedAt());
+        if (updateChannel.getCountry() != null) {
+            existingChannel.setCountry(updateChannel.getCountry());
+        }
     }
 }

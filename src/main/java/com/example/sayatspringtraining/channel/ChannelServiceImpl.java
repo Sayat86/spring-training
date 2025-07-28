@@ -41,16 +41,12 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public Channel update(Channel updateChannel, int channelId, int userId) {
+    public Channel update(Channel updateChannel, int userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с таким ID не найден"));
-        Channel channelExisting = channelRepository.findById(channelId)
+        Channel channelExisting = channelRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("Канал не найден"));
-        if (channelExisting.getUser().getId() != userId) {
-            throw new ForbiddenException("Данный пользователь не является владельцем канала");
-        }
         channelMapper.merge(channelExisting, updateChannel);
-        channelExisting.setCreatedAt(LocalDateTime.now());
         return channelRepository.save(channelExisting);
     }
 

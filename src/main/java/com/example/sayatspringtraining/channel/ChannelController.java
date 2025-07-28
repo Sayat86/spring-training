@@ -26,12 +26,11 @@ public class ChannelController {
         return channelMapper.toResponse(channelService.create(channel, userId));
     }
 
-    @PatchMapping("/me/{channelId}")
+    @PatchMapping("/me")
     public ChannelResponseDto update(@RequestBody ChannelUpdateDto channelUpdate,
-                                     @RequestHeader(USER_HEADER) int userId,
-                                     @PathVariable int channelId) {
+                                     @RequestHeader(USER_HEADER) int userId) {
         Channel channel = channelMapper.fromUpdate(channelUpdate);
-        return channelMapper.toResponse(channelService.update(channel, userId, channelId));
+        return channelMapper.toResponse(channelService.update(channel, userId));
     }
 
     @GetMapping("/{channelId}")

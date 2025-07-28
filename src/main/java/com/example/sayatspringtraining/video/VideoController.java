@@ -39,4 +39,10 @@ public class VideoController {
         int page = from / size;
         return videoMapper.toResponse(videoService.findAllByChannelId(channelId, page, size));
     }
+
+    @PostMapping("/{videoId}/views")
+    public VideoResponseDto registerView(@PathVariable int videoId,
+                                         @RequestHeader(defaultValue = USER_HEADER) int userId) {
+
+    }
 }
