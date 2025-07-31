@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,22 +47,36 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public Video registerView(int videoId, Integer userId) {
-        Video video = videoRepository.findById(userId)
+        Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+
         if (userId != null) {
-            Optional<View> optionalView = viewRepository.findByUserIdAndVideoId(videoId, userId);
-            if(optionalView.isPresent()) {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+
+            Optional<View> optionalView = viewRepository.findByUserIdAndVideoId(userId, videoId);
+            if (optionalView.isPresent()) {
+                // Уже смотрел — просто обновим дату
                 View view = optionalView.get();
-                // обновляем updatedAt
-                // save
-
+                view.setUpdatedAt(LocalDateTime.now());
+                viewRepository.save(view);
             } else {
-                // Создаем объекь View
-            }
-        }
+                // Первый просмотр — создаём запись и увеличиваем счётчик
+                View newView = new View();
+                newView.setUser(user);
+                newView.setVideo(video);
+                newView.setCreatedAt(LocalDateTime.now());
+                newView.setUpdatedAt(LocalDateTime.now());
+                viewRepository.save(newView);
 
+                video.setViews(video.getViews() + 1);
+                videoRepository.save(video);
+            }
+        } else {
+            // Анонимный пользователь — просто увеличиваем счётчик
+            video.setViews(video.getViews() + 1);
+            videoRepository.save(video);
+        }
         return video;
     }
 }

@@ -43,6 +43,6 @@ public class VideoController {
     @PostMapping("/{videoId}/views")
     public VideoResponseDto registerView(@PathVariable int videoId,
                                          @RequestHeader(defaultValue = USER_HEADER) int userId) {
-
+        return videoMapper.toResponse(videoService.registerView(videoId, userId));
     }
 }
