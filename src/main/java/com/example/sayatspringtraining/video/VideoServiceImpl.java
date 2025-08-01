@@ -11,6 +11,7 @@ import com.example.sayatspringtraining.view.ViewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,10 +26,12 @@ public class VideoServiceImpl implements VideoService {
     private final ViewRepository viewRepository;
 
     @Override
-    public Video create(Video video, int channelId) {
-        Channel channel = channelRepository.findById(channelId)
+    public Video create(Video video, int userId) {
+        Channel channel = channelRepository.findByUserId(userId)
                 .orElseThrow(() -> new NotFoundException("Канал не найден"));
         video.setChannel(channel);
+        video.setCreatedAt(LocalDateTime.now());
+        video.setViews(0);
         return videoRepository.save(video);
     }
 
@@ -46,6 +49,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional
     public Video registerView(int videoId, Integer userId) {
         Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));

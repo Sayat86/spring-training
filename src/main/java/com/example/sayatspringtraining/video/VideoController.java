@@ -22,9 +22,9 @@ public class VideoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VideoResponseDto create(@Valid @RequestBody VideoCreateDto videoCreate,
-                                   @RequestHeader(USER_HEADER) int channelId) { //todo
+                                   @RequestHeader(USER_HEADER) int userId) { //todo
         Video video = videoMapper.fromCreate(videoCreate);
-        return videoMapper.toResponse(videoService.create(video, channelId));
+        return videoMapper.toResponse(videoService.create(video, userId));
     }
 
     @GetMapping("/{videoId}")
@@ -42,7 +42,7 @@ public class VideoController {
 
     @PostMapping("/{videoId}/views")
     public VideoResponseDto registerView(@PathVariable int videoId,
-                                         @RequestHeader(defaultValue = USER_HEADER) int userId) {
+                                         @RequestHeader(value = USER_HEADER, required = false) Integer userId) {
         return videoMapper.toResponse(videoService.registerView(videoId, userId));
     }
 }

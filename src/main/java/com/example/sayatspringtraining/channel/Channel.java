@@ -25,7 +25,7 @@ public class Channel {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

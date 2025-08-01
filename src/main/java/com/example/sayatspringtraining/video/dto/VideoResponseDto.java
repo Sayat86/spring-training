@@ -10,5 +10,5 @@ public class VideoResponseDto {
     private String description;
     private Boolean isHidden;
     private Integer views;
-    private ChannelResponseDto channel;
+    private ChannelResponseDto channel; //todo ChannelWithoutUserResponseDto
 }
