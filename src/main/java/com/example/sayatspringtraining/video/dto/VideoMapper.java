@@ -1,6 +1,6 @@
 package com.example.sayatspringtraining.video.dto;
 
-import com.example.sayatspringtraining.channel.dto.ChannelResponseDto;
+import com.example.sayatspringtraining.channel.dto.ChannelWithoutUserResponseDto;
 import com.example.sayatspringtraining.video.Video;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class VideoMapper {
 
     public VideoResponseDto toResponse(Video video) {
         VideoResponseDto videoResponse = new VideoResponseDto();
-        ChannelResponseDto channelResponse = new ChannelResponseDto();
+        ChannelWithoutUserResponseDto channelResponse = new ChannelWithoutUserResponseDto();
 
         channelResponse.setId(video.getChannel().getId());
         channelResponse.setName(video.getChannel().getName());

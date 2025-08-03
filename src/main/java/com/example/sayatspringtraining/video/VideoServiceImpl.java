@@ -83,4 +83,10 @@ public class VideoServiceImpl implements VideoService {
         }
         return video;
     }
+
+    @Override
+    public List<Video> findViewsByUserId(int userId, int page, int size) {
+        return videoRepository.findByViewListUserId(userId, PageRequest.of(page, size))
+                .getContent();
+    }
 }

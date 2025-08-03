@@ -1,6 +1,7 @@
 package com.example.sayatspringtraining.video.dto;
 
 import com.example.sayatspringtraining.channel.dto.ChannelResponseDto;
+import com.example.sayatspringtraining.channel.dto.ChannelWithoutUserResponseDto;
 import lombok.Data;
 
 @Data
@@ -10,5 +11,5 @@ public class VideoResponseDto {
     private String description;
     private Boolean isHidden;
     private Integer views;
-    private ChannelResponseDto channel; //todo ChannelWithoutUserResponseDto
+    private ChannelWithoutUserResponseDto channel;
 }
