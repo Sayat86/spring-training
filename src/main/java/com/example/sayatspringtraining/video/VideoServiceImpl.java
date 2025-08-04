@@ -43,8 +43,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<Video> findAllByChannelId(int channelId, int page, int size) {
-        return videoRepository.findByChannelId(channelId, PageRequest.of(page, size))
+    public List<Video> findAllByChannelId(int channelId, Boolean isHidden, int page, int size) {
+        return videoRepository.findByChannelIdAndIsHidden(channelId, isHidden,
+                        PageRequest.of(page, size))
                 .getContent();
     }
 

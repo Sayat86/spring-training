@@ -1,12 +1,12 @@
 package com.example.sayatspringtraining.view;
 
+import com.example.sayatspringtraining.view.dto.ViewResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.example.sayatspringtraining.utils.RequestConstants.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +22,13 @@ public class ViewController {
     @GetMapping("/{videoId}")
     public List<View> findByVideoId(@PathVariable int videoId) {
         return viewService.findByVideoId(videoId);
+    }
+
+    @GetMapping
+    public List<ViewResponseDto> findAllViewsByUser(@RequestHeader(value = USER_HEADER) int userId,
+                                                    @RequestParam(defaultValue = DEFAULT_FROM) int from,
+                                                    @RequestParam(defaultValue = DEFAULT_SIZE) int size) {
+        int page = from / size;
+        return null; //todo
     }
 }
