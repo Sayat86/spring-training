@@ -54,6 +54,10 @@ public class VideoServiceImpl implements VideoService {
         Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));
 
+        if (video.getIsHidden()) {
+            throw new NotFoundException("Просмотр не возможен, так как видео не доступно");
+        }
+
         if (userId != null) {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
