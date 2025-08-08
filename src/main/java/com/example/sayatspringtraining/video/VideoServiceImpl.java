@@ -43,8 +43,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public List<Video> findAllByChannelId(int channelId, Boolean isHidden, int page, int size) {
-        return videoRepository.findByChannelIdAndIsHidden(channelId, isHidden,
+    public List<Video> findAllByChannelId(int channelId, int page, int size) {
+        return videoRepository.findByChannelIdAndIsHidden(channelId, false,
                         PageRequest.of(page, size))
                 .getContent();
     }
@@ -83,11 +83,5 @@ public class VideoServiceImpl implements VideoService {
             videoRepository.save(video);
         }
         return video;
-    }
-
-    @Override
-    public List<Video> findViewsByUserId(int userId, int page, int size) {
-        return videoRepository.findByViewListUserId(userId, PageRequest.of(page, size))
-                .getContent();
     }
 }

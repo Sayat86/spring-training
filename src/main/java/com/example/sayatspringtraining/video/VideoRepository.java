@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface VideoRepository extends JpaRepository<Video, Integer> {
-    Page<Video> findByViewListUserId(int userId, Pageable pageable); //todo доделать дальше в ...
     Page<Video> findByChannelIdAndIsHidden(int channelId, Boolean isHidden, Pageable pageable);
 }

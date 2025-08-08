@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class ViewResponseDto {
     private int id;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private VideoForViewDto video;
 }
