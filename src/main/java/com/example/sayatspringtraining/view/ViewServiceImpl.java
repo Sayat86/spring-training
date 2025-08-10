@@ -13,16 +13,6 @@ public class ViewServiceImpl implements ViewService {
     private final ViewRepository viewRepository;
 
     @Override
-    public List<View> findByUserId(int userId) {
-        return viewRepository.findByUserId(userId);
-    }
-
-    @Override
-    public List<View> findByVideoId(int videoId) {
-        return viewRepository.findByVideoId(videoId);
-    }
-
-    @Override
     public List<View> findByUserId(int userId, int page, int size) {
         return viewRepository.findByUserId(userId, PageRequest.of(page, size))
                 .getContent();

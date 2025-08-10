@@ -56,7 +56,7 @@ public class VideoServiceImpl implements VideoService {
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));
 
         if (video.getIsHidden()) {
-            throw new NotFoundException("Просмотр не возможен, так как видео не доступно");
+            throw new NotFoundException("К видео доступ ограничен, просмотр не создается");
         }
 
         if (userId != null) {
