@@ -45,12 +45,4 @@ public class VideoController {
                                          @RequestHeader(value = USER_HEADER, required = false) Integer userId) {
         return videoMapper.toResponse(videoService.registerView(videoId, userId));
     }
-
-    @GetMapping("/views")
-    public List<VideoResponseDto> findViewsByUserId(@RequestHeader(value = USER_HEADER) int userId,
-                                                    @RequestParam(defaultValue = DEFAULT_FROM) int from,
-                                                    @RequestParam(defaultValue = DEFAULT_SIZE) int size) {
-        int page = from / size;
-        return videoMapper.toResponse(videoService.findViewsByUserId(userId, page, size));
-    }
 }

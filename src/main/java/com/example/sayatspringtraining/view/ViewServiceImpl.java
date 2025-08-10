@@ -1,6 +1,8 @@
 package com.example.sayatspringtraining.view;
 
+import com.example.sayatspringtraining.video.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +20,11 @@ public class ViewServiceImpl implements ViewService {
     @Override
     public List<View> findByVideoId(int videoId) {
         return viewRepository.findByVideoId(videoId);
+    }
+
+    @Override
+    public List<View> findByUserId(int userId, int page, int size) {
+        return viewRepository.findByUserId(userId, PageRequest.of(page, size))
+                .getContent();
     }
 }

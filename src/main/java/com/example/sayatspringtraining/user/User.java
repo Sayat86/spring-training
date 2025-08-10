@@ -24,9 +24,6 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Channel channel;
-
     @OneToMany(mappedBy = "user")
     private List<View> views;
 
