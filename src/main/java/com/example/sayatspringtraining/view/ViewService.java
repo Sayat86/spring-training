@@ -1,7 +1,5 @@
 package com.example.sayatspringtraining.view;
 
-import com.example.sayatspringtraining.video.Video;
-
 import java.util.List;
 
 public interface ViewService {

@@ -1,6 +1,5 @@
 package com.example.sayatspringtraining.view.dto;
 
-import com.example.sayatspringtraining.channel.dto.ChannelWithoutUserResponseDto;
 import com.example.sayatspringtraining.video.dto.VideoForViewDto;
 import lombok.Data;
 

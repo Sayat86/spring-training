@@ -13,16 +13,12 @@ public class ViewMapper {
         ViewResponseDto viewResponseDto = new ViewResponseDto();
         VideoForViewDto videoForViewDto = new VideoForViewDto();
 
-        if (view.getVideo() != null) {
-            videoForViewDto.setId(view.getVideo().getId());
-            videoForViewDto.setName(view.getVideo().getName());
-            videoForViewDto.setDescription(view.getVideo().getDescription());
-            videoForViewDto.setView(view.getVideo().getViews());
+        videoForViewDto.setId(view.getVideo().getId());
+        videoForViewDto.setName(view.getVideo().getName());
+        videoForViewDto.setDescription(view.getVideo().getDescription());
+        videoForViewDto.setView(view.getVideo().getViews());
+        videoForViewDto.setChannel(view.getVideo().getChannel().getName());
 
-            if (view.getVideo().getChannel() != null) {
-                videoForViewDto.setChannel(view.getVideo().getChannel().getName());
-            }
-        }
 
         viewResponseDto.setId(view.getId());
         viewResponseDto.setCreatedAt(view.getCreatedAt());

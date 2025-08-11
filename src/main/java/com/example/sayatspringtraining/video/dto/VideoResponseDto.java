@@ -1,8 +1,9 @@
 package com.example.sayatspringtraining.video.dto;
 
-import com.example.sayatspringtraining.channel.dto.ChannelResponseDto;
 import com.example.sayatspringtraining.channel.dto.ChannelWithoutUserResponseDto;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class VideoResponseDto {
@@ -10,6 +11,7 @@ public class VideoResponseDto {
     private String name;
     private String description;
     private Boolean isHidden;
+    private LocalDateTime createdAt; //todo
     private Integer views;
     private ChannelWithoutUserResponseDto channel;
 }

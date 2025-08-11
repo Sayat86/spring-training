@@ -54,14 +54,14 @@ curl -X POST http://localhost:8080/users \
 -d '{"name":"Иван Иванов", "email":"ivan@example.com"}'
 Пример ответа (201 Created):
 
-json
-Копировать
-Редактировать
+```json
 {
 "id": 1,
 "name": "Иван Иванов",
 "email": "ivan@example.com"
 }
+```
+
 2. Получение пользователя по ID
    GET /users/{userId}
 
