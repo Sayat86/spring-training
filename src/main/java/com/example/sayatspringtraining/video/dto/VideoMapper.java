@@ -30,6 +30,7 @@ public class VideoMapper {
         videoResponse.setName(video.getName());
         videoResponse.setDescription(video.getDescription());
         videoResponse.setIsHidden(video.getIsHidden());
+        videoResponse.setCreatedAt(video.getCreatedAt());
         videoResponse.setViews(video.getViews());
         videoResponse.setChannel(channelResponse);
         return videoResponse;

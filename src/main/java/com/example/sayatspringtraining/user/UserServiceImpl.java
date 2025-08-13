@@ -1,10 +1,12 @@
 package com.example.sayatspringtraining.user;
 
+import com.example.sayatspringtraining.channel.Channel;
 import com.example.sayatspringtraining.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +28,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Channel> getSubscribedChannels(int userId) {
+        return List.of();
     }
 }

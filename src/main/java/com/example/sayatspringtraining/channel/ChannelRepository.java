@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface ChannelRepository extends JpaRepository<Channel, Integer> {
     Optional<Channel> findByUserId(int userId);
-
+    List<Channel> findAllBySubscribersId(int userId);
 }

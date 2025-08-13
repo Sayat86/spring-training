@@ -4,6 +4,8 @@ import com.example.sayatspringtraining.channel.Channel;
 import com.example.sayatspringtraining.user.dto.UserResponseDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ChannelMapper {
     public Channel fromCreate(ChannelCreateDto channelCreate) {
@@ -50,5 +52,22 @@ public class ChannelMapper {
         if (updateChannel.getCountry() != null) {
             existingChannel.setCountry(updateChannel.getCountry());
         }
+    }
+
+    public ChannelForSubscriptionDto toResponseSubscription(Channel channel) {
+        ChannelForSubscriptionDto channelForSubscriptionDto = new ChannelForSubscriptionDto();
+
+        channelForSubscriptionDto.setId(channel.getId());
+        channelForSubscriptionDto.setName(channel.getName());
+        channelForSubscriptionDto.setDescription(channel.getDescription());
+        channelForSubscriptionDto.setCountry(channel.getCountry());
+
+        return channelForSubscriptionDto;
+    }
+
+    public List<ChannelForSubscriptionDto> toResponseSubscription(List<Channel> channels) {
+        return channels.stream()
+                .map(this::toResponseSubscription)
+                .toList();
     }
 }

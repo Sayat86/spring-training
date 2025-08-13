@@ -10,8 +10,8 @@ public class VideoResponseDto {
     private int id;
     private String name;
     private String description;
+    private LocalDateTime createdAt;
     private Boolean isHidden;
-    private LocalDateTime createdAt; //todo
     private Integer views;
     private ChannelWithoutUserResponseDto channel;
 }
