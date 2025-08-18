@@ -5,7 +5,12 @@ import com.example.sayatspringtraining.channel.ChannelRepository;
 import com.example.sayatspringtraining.exception.NotFoundException;
 import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.user.UserRepository;
+import com.example.sayatspringtraining.video.Video;
+import com.example.sayatspringtraining.video.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +21,7 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService{
     private final ChannelRepository channelRepository;
     private final UserRepository userRepository;
+    private final VideoRepository videoRepository;
 
     @Override
     public List<Channel> findSubscribedChannelsByUserId(int userId) {
@@ -51,5 +57,11 @@ public class SubscriptionServiceImpl implements SubscriptionService{
         if (user.getSubscribedChannels().remove(channel)) {
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public List<Video> findVideoSubscribedChannels(int userId, List<Integer> videos, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return videoRepository.findAllByChannelSubscribersIdAndIsHiddenFalseOrderByCreatedAtDesc(userId, videos, pageable).getContent();
     }
 }

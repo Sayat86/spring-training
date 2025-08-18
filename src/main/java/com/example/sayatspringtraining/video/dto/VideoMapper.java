@@ -2,6 +2,7 @@ package com.example.sayatspringtraining.video.dto;
 
 import com.example.sayatspringtraining.channel.dto.ChannelWithoutUserResponseDto;
 import com.example.sayatspringtraining.video.Video;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
