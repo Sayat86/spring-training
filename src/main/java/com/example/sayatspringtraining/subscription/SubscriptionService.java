@@ -11,5 +11,5 @@ public interface SubscriptionService {
 
     void subscribeToChannel(int userId, int channelId);
     void unsubscribeFromChannel(int userId, int channelId);
-    List<Video> findVideoSubscribedChannels(int userId, List<Integer> videos, int page, int size);
+    List<Video> findVideoSubscribedChannels(int userId, int page, int size);
 }

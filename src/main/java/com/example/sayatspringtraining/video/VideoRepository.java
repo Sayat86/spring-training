@@ -9,5 +9,5 @@ import java.util.List;
 public interface VideoRepository extends JpaRepository<Video, Integer> {
     Page<Video> findByChannelIdAndIsHidden(int channelId, Boolean isHidden, Pageable pageable);
 
-    Page<Video> findAllByChannelSubscribersIdAndIsHiddenFalseOrderByCreatedAtDesc(int userId, List<Integer> videoIds, Pageable pageable);
+    Page<Video> findAllByChannelSubscribersIdAndIsHiddenFalseOrderByCreatedAtDesc(int userId, Pageable pageable);
 }

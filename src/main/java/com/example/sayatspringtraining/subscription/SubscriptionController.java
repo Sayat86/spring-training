@@ -26,10 +26,9 @@ public class SubscriptionController {
 
     @GetMapping("/videos")
     public List<VideoResponseDto> getVideoSubscribedChannels(@RequestHeader(value = USER_HEADER) int userId,
-                                                             @RequestParam(required = false) List<Integer> videos,
                                                              @RequestParam(defaultValue = DEFAULT_FROM) int from,
                                                              @RequestParam(defaultValue = DEFAULT_SIZE) int size) {
         int page = from / size;
-        return videoMapper.toResponse(subscriptionService.findVideoSubscribedChannels(userId, videos, page, size));
+        return videoMapper.toResponse(subscriptionService.findVideoSubscribedChannels(userId, page, size));
     }
 }

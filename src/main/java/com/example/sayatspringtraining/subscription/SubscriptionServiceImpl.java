@@ -25,20 +25,19 @@ public class SubscriptionServiceImpl implements SubscriptionService{
 
     @Override
     public List<Channel> findSubscribedChannelsByUserId(int userId) {
-        List<Channel> channels = channelRepository.findAllBySubscribersId(userId);
-        if (channels.isEmpty()) {
-            throw new NotFoundException("Подписки пользователя не найдены");
-        }
-        return channels;
+        return channelRepository.findAllBySubscribersId(userId);
     }
 
     @Transactional
     @Override
     public void subscribeToChannel(int userId, int channelId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
         Channel channel = channelRepository.findById(channelId)
                 .orElseThrow(() -> new NotFoundException("Канал не найден"));
+        if (channel.getUser().getId() == userId) { //TODO
+            // THROW
+        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
 
         if (!user.getSubscribedChannels().contains(channel)) {
             user.getSubscribedChannels().add(channel);
@@ -60,8 +59,8 @@ public class SubscriptionServiceImpl implements SubscriptionService{
     }
 
     @Override
-    public List<Video> findVideoSubscribedChannels(int userId, List<Integer> videos, int page, int size) {
+    public List<Video> findVideoSubscribedChannels(int userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return videoRepository.findAllByChannelSubscribersIdAndIsHiddenFalseOrderByCreatedAtDesc(userId, videos, pageable).getContent();
+        return videoRepository.findAllByChannelSubscribersIdAndIsHiddenFalseOrderByCreatedAtDesc(userId, pageable).getContent();
     }
 }
