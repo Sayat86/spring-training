@@ -46,3 +46,14 @@ create table views
     created_at timestamp not null,
     updated_at timestamp not null
 );
+
+create table comments
+(
+    id bigserial primary key,
+    text varchar(1000) not null,
+    video_id bigint references videos (id),
+    channel_id bigint references channels (id),
+    parent_id bigint references comments (id) on delete cascade,
+    created_at timestamp not null default now(),
+    likes int not null default 0
+);

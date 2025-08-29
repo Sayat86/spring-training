@@ -2,6 +2,7 @@ package com.example.sayatspringtraining.channel;
 
 import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.video.Video;
+import com.example.sayatspringtraining.video.comment.Comment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,4 +35,7 @@ public class Channel {
 
     @ManyToMany(mappedBy = "subscribedChannels")
     private List<User> subscribers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "channel")
+    private List<Comment> comments;
 }

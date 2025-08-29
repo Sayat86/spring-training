@@ -1,6 +1,7 @@
 package com.example.sayatspringtraining.video;
 
 import com.example.sayatspringtraining.channel.Channel;
+import com.example.sayatspringtraining.video.comment.Comment;
 import com.example.sayatspringtraining.view.View;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,4 +32,7 @@ public class Video {
 
     @OneToMany(mappedBy = "video")
     private List<View> viewList;
+
+    @OneToMany(mappedBy = "video")
+    private List<Comment> comments;
 }
