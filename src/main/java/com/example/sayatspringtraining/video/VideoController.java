@@ -1,5 +1,11 @@
 package com.example.sayatspringtraining.video;
 
+import com.example.sayatspringtraining.video.comment.Comment;
+import com.example.sayatspringtraining.video.comment.CommentService;
+import com.example.sayatspringtraining.video.comment.dto.CommentCreateDto;
+import com.example.sayatspringtraining.video.comment.dto.CommentMapper;
+import com.example.sayatspringtraining.video.comment.dto.CommentResponseFullDto;
+import com.example.sayatspringtraining.video.comment.dto.CommentResponseShortDto;
 import com.example.sayatspringtraining.video.dto.VideoCreateDto;
 import com.example.sayatspringtraining.video.dto.VideoMapper;
 import com.example.sayatspringtraining.video.dto.VideoResponseDto;
@@ -18,6 +24,8 @@ import static com.example.sayatspringtraining.utils.RequestConstants.*;
 public class VideoController {
     private final VideoService videoService;
     private final VideoMapper videoMapper;
+    private final CommentMapper commentMapper;
+    private final CommentService commentService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,5 +52,18 @@ public class VideoController {
     public VideoResponseDto registerView(@PathVariable int videoId,
                                          @RequestHeader(value = USER_HEADER, required = false) Integer userId) {
         return videoMapper.toResponse(videoService.registerView(videoId, userId));
+    }
+
+    @PostMapping("/{videoId}/comments")
+    public CommentResponseShortDto create(@RequestBody CommentCreateDto commentCreate,
+                                          @RequestHeader(USER_HEADER) int userId,
+                                          @PathVariable int videoId) {
+        Comment comment = commentMapper.fromCreate(commentCreate);
+        return commentMapper.toResponseShort(commentService.create(comment, userId, videoId));
+    }
+
+    @GetMapping("/{videoId}/comments")
+    public List<CommentResponseFullDto> findCommentsForOneVideo(@PathVariable int videoId) {
+        return commentMapper.toResponseFull(commentService.findCommentsForOneVideo(videoId)); //todo
     }
 }

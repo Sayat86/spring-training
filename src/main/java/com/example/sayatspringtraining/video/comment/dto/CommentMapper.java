@@ -40,7 +40,7 @@ public class CommentMapper {
 
         commentResponseFull.setLikes(comment.getLikes());
 
-        List<CommentResponseShortDto> answers = comment.getReplies().stream()
+        List<CommentResponseShortDto> answers = comment.getAnswers().stream()
                 .map(this::toResponseShort)
                 .collect(Collectors.toList());
         commentResponseFull.setAnswers(answers);
@@ -48,12 +48,14 @@ public class CommentMapper {
         return commentResponseFull;
     }
 
-    public Comment fromCreate(CommentCreateDto dto, Channel channel, Video video, Comment parent) {
+    public Comment fromCreate(CommentCreateDto commentCreate) {
         Comment comment = new Comment();
-        comment.setText(dto.getText());
+        Channel channel = new Channel();
+        Video video = new Video();
+        comment.setText(commentCreate.getText());
         comment.setChannel(channel);
         comment.setVideo(video);
-        comment.setParent(parent);
+//        comment.setParentComment(); todo
         return comment;
     }
 }
