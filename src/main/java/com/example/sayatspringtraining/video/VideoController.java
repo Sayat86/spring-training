@@ -64,6 +64,9 @@ public class VideoController {
 
     @GetMapping("/{videoId}/comments")
     public List<CommentResponseFullDto> findCommentsForOneVideo(@PathVariable int videoId) {
-        return commentMapper.toResponseFull(commentService.findCommentsForOneVideo(videoId)); //todo
+        return commentService.findCommentsForOneVideo(videoId).stream()
+                .map(commentMapper::toResponseFull)
+                .toList();//todo
+
     }
 }

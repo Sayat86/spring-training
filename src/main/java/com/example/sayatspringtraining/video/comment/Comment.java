@@ -27,7 +27,7 @@ public class Comment {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private Integer likes = 0;
+    private Integer likes;
 
     @ManyToOne
     @JoinColumn(name = "video_id")

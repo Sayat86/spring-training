@@ -1,6 +1,5 @@
 package com.example.sayatspringtraining.video.comment.dto;
 
-import com.example.sayatspringtraining.channel.dto.ChannelForCommentDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;

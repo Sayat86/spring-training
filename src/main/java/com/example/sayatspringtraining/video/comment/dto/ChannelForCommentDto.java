@@ -1,4 +1,4 @@
-package com.example.sayatspringtraining.channel.dto;
+package com.example.sayatspringtraining.video.comment.dto;
 
 import lombok.Data;
 

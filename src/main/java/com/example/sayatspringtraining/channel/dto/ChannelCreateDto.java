@@ -2,6 +2,7 @@ package com.example.sayatspringtraining.channel.dto;
 
 import com.example.sayatspringtraining.channel.Country;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -13,6 +14,6 @@ public class ChannelCreateDto {
     @NotBlank(message = "Описание не может быть пустым")
     @Size(max = 1000)
     private String description;
-    @NotBlank(message = "Введите страну")
+    @NotNull(message = "Введите страну")
     private Country country;
 }

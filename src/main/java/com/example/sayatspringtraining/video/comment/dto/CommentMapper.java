@@ -1,7 +1,6 @@
 package com.example.sayatspringtraining.video.comment.dto;
 
 import com.example.sayatspringtraining.channel.Channel;
-import com.example.sayatspringtraining.channel.dto.ChannelForCommentDto;
 import com.example.sayatspringtraining.video.Video;
 import com.example.sayatspringtraining.video.comment.Comment;
 import org.springframework.stereotype.Component;
@@ -50,12 +49,13 @@ public class CommentMapper {
 
     public Comment fromCreate(CommentCreateDto commentCreate) {
         Comment comment = new Comment();
-        Channel channel = new Channel();
-        Video video = new Video();
         comment.setText(commentCreate.getText());
-        comment.setChannel(channel);
-        comment.setVideo(video);
-//        comment.setParentComment(); todo
+
+        if (commentCreate.getParentId() != null) {
+            Comment parentComment = new Comment();
+            parentComment.setId(commentCreate.getParentId());
+            comment.setParentComment(parentComment);// todo
+        }
         return comment;
     }
 }
