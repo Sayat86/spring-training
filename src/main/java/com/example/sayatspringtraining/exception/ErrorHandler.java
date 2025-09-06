@@ -18,4 +18,10 @@ public class ErrorHandler {
     public ErrorResponse handleForbidden(final ForbiddenException e) {
         return new ErrorResponse(e.getMessage());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleConflict(final ConflictException e) {
+        return new ErrorResponse(e.getMessage());
+    }
 }

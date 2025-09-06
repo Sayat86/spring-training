@@ -1,5 +1,6 @@
 package com.example.sayatspringtraining.video;
 
+import com.example.sayatspringtraining.like.LikeService;
 import com.example.sayatspringtraining.video.comment.Comment;
 import com.example.sayatspringtraining.video.comment.CommentService;
 import com.example.sayatspringtraining.video.comment.dto.CommentCreateDto;
@@ -26,6 +27,7 @@ public class VideoController {
     private final VideoMapper videoMapper;
     private final CommentMapper commentMapper;
     private final CommentService commentService;
+    private final LikeService likeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -75,5 +77,19 @@ public class VideoController {
     public void deleteCommentById(@PathVariable int videoId,
                            @PathVariable int commentId) {
         commentService.deleteById(videoId, commentId);
+    }
+
+    @PutMapping("/{videoId}/likes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void likeVideo(@RequestHeader(value = USER_HEADER) int userId,
+                          @PathVariable int videoId) {
+        likeService.likeVideo(userId, videoId);
+    }
+
+    @DeleteMapping("/{videoId}/likes")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unlikeVideo(@RequestHeader(value = USER_HEADER) int userId,
+                            @PathVariable int videoId) {
+        likeService.unlikeVideo(userId, videoId);
     }
 }

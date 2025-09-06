@@ -8,7 +8,6 @@ import com.example.sayatspringtraining.user.UserRepository;
 import com.example.sayatspringtraining.video.Video;
 import com.example.sayatspringtraining.video.VideoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,11 +32,11 @@ public class SubscriptionServiceImpl implements SubscriptionService{
     public void subscribeToChannel(int userId, int channelId) {
         Channel channel = channelRepository.findById(channelId)
                 .orElseThrow(() -> new NotFoundException("Канал не найден"));
-        if (channel.getUser().getId() == userId) { //TODO
-            // THROW
-        }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        if (!channel.getSubscribers().contains(user)) {
+            throw new NotFoundException("Пользователь не является подписчиком этого канала");
+        }
 
         if (!user.getSubscribedChannels().contains(channel)) {
             user.getSubscribedChannels().add(channel);

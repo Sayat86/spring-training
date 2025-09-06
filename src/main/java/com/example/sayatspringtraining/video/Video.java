@@ -1,6 +1,7 @@
 package com.example.sayatspringtraining.video;
 
 import com.example.sayatspringtraining.channel.Channel;
+import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.video.comment.Comment;
 import com.example.sayatspringtraining.view.View;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,4 +37,8 @@ public class Video {
 
     @OneToMany(mappedBy = "video")
     private List<Comment> comments;
+
+    @ManyToMany(mappedBy = "likedVideos")
+    private List<User> likedByUsers = new ArrayList<>(); // вернётся список пользователей,
+    // которые лайкнули это видео
 }

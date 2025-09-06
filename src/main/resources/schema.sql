@@ -57,3 +57,10 @@ create table comments
     created_at timestamp not null default now(),
     likes int not null default 0
 );
+
+create table video_likes
+(
+    user_id bigint references users (id),
+    video_id bigint references videos (id),
+    primary key (user_id, video_id)
+);
