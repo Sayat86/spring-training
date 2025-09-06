@@ -52,4 +52,14 @@ public class CommentServiceImpl implements CommentService {
 
         return commentRepository.findByVideoIdAndParentCommentIsNullOrderByCreatedAt(videoId);
     }
+
+    @Override
+    public void deleteById(int videoId, int commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("Комментарий не найден"));
+        if (comment.getVideo().getId() != videoId) {
+            throw new NotFoundException("Комментарий не принадлежит к данному видео");
+        }
+        commentRepository.deleteById(commentId);
+    }
 }

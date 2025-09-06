@@ -55,6 +55,7 @@ public class VideoController {
     }
 
     @PostMapping("/{videoId}/comments")
+    @ResponseStatus(HttpStatus.CREATED)
     public CommentResponseShortDto create(@RequestBody CommentCreateDto commentCreate,
                                           @RequestHeader(USER_HEADER) int userId,
                                           @PathVariable int videoId) {
@@ -67,6 +68,12 @@ public class VideoController {
         return commentService.findCommentsForOneVideo(videoId).stream()
                 .map(commentMapper::toResponseFull)
                 .toList();//todo
+    }
 
+    @DeleteMapping("/{videoId}/comments/{commentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCommentById(@PathVariable int videoId,
+                           @PathVariable int commentId) {
+        commentService.deleteById(videoId, commentId);
     }
 }
