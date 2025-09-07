@@ -2,6 +2,7 @@ package com.example.sayatspringtraining.user;
 
 import com.example.sayatspringtraining.channel.Channel;
 import com.example.sayatspringtraining.video.Video;
+import com.example.sayatspringtraining.video.comment.Comment;
 import com.example.sayatspringtraining.view.View;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -44,4 +45,12 @@ public class User {
     )
     private List<Video> likedVideos = new ArrayList<>(); // вернётся список видео,
     // которые пользователь лайкнул.
+
+    @ManyToMany
+    @JoinTable(
+            name = "comment_likes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id")
+    )
+    private List<Comment> likedComments = new ArrayList<>();
 }

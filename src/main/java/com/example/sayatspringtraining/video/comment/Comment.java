@@ -1,6 +1,7 @@
 package com.example.sayatspringtraining.video.comment;
 
 import com.example.sayatspringtraining.channel.Channel;
+import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.video.Video;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -43,4 +44,7 @@ public class Comment {
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> answers = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "likedComments")
+    private List<User> likedByUsers = new ArrayList<>();
 }

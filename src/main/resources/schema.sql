@@ -64,3 +64,10 @@ create table video_likes
     video_id bigint references videos (id),
     primary key (user_id, video_id)
 );
+
+create table comment_likes
+(
+    user_id bigint references users (id) on DELETE cascade,
+    comment_id bigint references comments (id) on DELETE cascade,
+    primary key (user_id, comment_id)
+);
