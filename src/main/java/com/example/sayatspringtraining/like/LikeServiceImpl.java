@@ -6,8 +6,6 @@ import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.user.UserRepository;
 import com.example.sayatspringtraining.video.Video;
 import com.example.sayatspringtraining.video.VideoRepository;
-import com.example.sayatspringtraining.video.comment.Comment;
-import com.example.sayatspringtraining.video.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -18,19 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeServiceImpl implements LikeService {
     private final UserRepository userRepository;
     private final VideoRepository videoRepository;
-    private final CommentRepository commentRepository;
+//    private final CommentRepository commentRepository;
 
     @Transactional
     @Override
     public void likeVideo(int userId, int videoId) {
+        if (videoRepository.existsByUserAndVideo(userId, videoId)) {
+            throw new ConflictException("Пользователь уже поставил лайк этому видео");
+        }
+
         Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
 
-        if (user.getLikedVideos().contains(video)) {
-            throw new ConflictException("Пользователь уже поставил лайк этому видео");
-        }
         user.getLikedVideos().add(video);
         userRepository.save(user);
     }
@@ -38,15 +37,17 @@ public class LikeServiceImpl implements LikeService {
     @Transactional
     @Override
     public void unlikeVideo(int userId, int videoId) {
-        Video video = videoRepository.findById(videoId)
-                .orElseThrow(() -> new NotFoundException("Видео не найдено"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        if (!videoRepository.existsById(videoId)) {
+            throw new NotFoundException("Видео не найдено");
+        }
+        if (!userRepository.existsById(userId)) {
+            throw new NotFoundException("Пользователь не найден");
+        }
 
-        if (!user.getLikedVideos().remove(video)) {
+        int deleted = videoRepository.deleteByUserAndVideo(userId, videoId);
+        if (deleted == 0) {
             throw new ConflictException("Пользователь не ставил лайк этому видео");
         }
-        userRepository.save(user);
     }
 
     @Transactional
