@@ -75,8 +75,9 @@ public class VideoController {
     @DeleteMapping("/{videoId}/comments/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentById(@PathVariable int videoId,
-                           @PathVariable int commentId) {
-        commentService.deleteById(videoId, commentId);
+                                  @PathVariable int commentId,
+                                  @RequestParam int userId) {
+        commentService.deleteById(videoId, commentId, userId);
     }
 
     @PutMapping("/{videoId}/likes")

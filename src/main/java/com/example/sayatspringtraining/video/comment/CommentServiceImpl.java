@@ -2,6 +2,7 @@ package com.example.sayatspringtraining.video.comment;
 
 import com.example.sayatspringtraining.channel.Channel;
 import com.example.sayatspringtraining.channel.ChannelRepository;
+import com.example.sayatspringtraining.exception.ForbiddenException;
 import com.example.sayatspringtraining.exception.NotFoundException;
 import com.example.sayatspringtraining.user.User;
 import com.example.sayatspringtraining.user.UserRepository;
@@ -54,11 +55,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteById(int videoId, int commentId) {
+    public void deleteById(int videoId, int commentId, int currentUserId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundException("Комментарий не найден"));
         if (comment.getVideo().getId() != videoId) {
             throw new NotFoundException("Комментарий не принадлежит к данному видео");
+        }
+        if (!comment.getAuthor().getId().equals(currentUserId)) {
+            throw new ForbiddenException("Удалять комментарий может только его автор");
         }
         commentRepository.deleteById(commentId);
     }
