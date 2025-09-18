@@ -7,4 +7,5 @@ public interface VideoService {
     Video findById(int videoId);
     List<Video> findAllByChannelId(int channelId, int page, int size);
     Video registerView(int videoId, Integer userId);
+    List<Video> getLikedVideosByUser(Integer userId);
 }

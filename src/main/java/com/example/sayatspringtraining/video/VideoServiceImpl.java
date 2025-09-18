@@ -88,4 +88,11 @@ public class VideoServiceImpl implements VideoService {
         }
         return video;
     }
+
+    @Override
+    public List<Video> getLikedVideosByUser(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        return user.getLikedVideos();
+    }
 }
