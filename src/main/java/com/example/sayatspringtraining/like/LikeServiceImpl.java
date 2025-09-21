@@ -27,6 +27,9 @@ public class LikeServiceImpl implements LikeService {
 
         Video video = videoRepository.findById(videoId)
                 .orElseThrow(() -> new NotFoundException("Видео не найдено"));
+        if (video.getIsHidden()) {
+            throw new ConflictException("Видео скрыто");
+        }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
 
